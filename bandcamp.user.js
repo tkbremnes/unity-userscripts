@@ -1,12 +1,16 @@
 // ==UserScript==
-// @name          BandCamp Ubuntu Unity thingy
+// @name          Bandcamp for Ubuntu
 // @namespace     http://kartoffelmos.net/userscripts
-// @description	  Greets the world
+// @description	  Unity integraton for Bandcamp
 // @include       http://*.bandcamp.com/*
+// @exclude       http://bandcamp.com
+// @version       0.0.1
 // ==/UserScript==
-// Notes:
-//   * is a wildcard character
-//   .tld is magic that matches all top-level domains (e.g. .com, .co.uk, .us, 
+
+// todo:
+// * make it work on single screen
+// * make it work on custom domains
+
 var Unity = external.getUnityObject(1.0); 
 
 
@@ -15,34 +19,27 @@ var Unity = external.getUnityObject(1.0);
 	});
 })()
 
-// Player.Playlist.LangUtils.makeclass.play
-// Player.Playlist.LangUtils.makeclass.next_track
-
-
-
-
-
 
 function unityReady() {
 
 	// check if this is strictly neccessary
-	window.setTimeout(function(){
+	//window.setTimeout(function(){
 
 		var title = $('#trackInfo .inline_player .title').text();
 
 		$('div.playbutton')
 
-
-
-
 		// proof on concept hack
 		window.setInterval(function(){
 
-			if($('div.playbutton').hasClass('playing')) {
-				Unity.MediaPlayer.setPlaybackState(Unity.MediaPlayer.PlaybackState.PLAYING)
+			var isPlaying = $('div.playbutton').hasClass('playing');
+
+			if(isPlaying) {
+				Unity.MediaPlayer.setPlaybackState(Unity.MediaPlayer.PlaybackState.PLAYING);
 			}
 			else {
-				Unity.MediaPlayer.setPlaybackState(Unity.MediaPlayer.PlaybackState.PAUSED)
+				Unity.MediaPlayer.setPlaybackState(Unity.MediaPlayer.PlaybackState.PAUSED);
+				return;
 			}
 
 			var checkTitle = $('#trackInfo .inline_player .title')[0].innerHTML;
@@ -67,14 +64,10 @@ function unityReady() {
 
 		}, 500); // todo: find a reasonable interval. ver2: track javascript
 
-
-
-	console.log(Unity);
-	}, 3000);
+	//}, 3000);
 
 	// Register the buttons
 	Unity.MediaPlayer.onPrevious(function() {
-		console.log('pressed previous');
 		$('div.prevbutton').click()
 	});
 
@@ -86,9 +79,13 @@ function unityReady() {
 		$('div.playbutton').click();
 	});
 
+
+	// Registers actions (todo: find appropriate actions)
+	// Unity.Launcher.addAction("Collection", function(){
+	// });
 }
 
-Unity.init({name: "BandCamp Unity",
+Unity.init({name: "Bandcamp",
             iconUrl: "http://i.imgur.com/wRGyEVM.png",
             onInit: unityReady});
 
