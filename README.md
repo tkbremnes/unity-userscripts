@@ -15,6 +15,11 @@ Integrates the websites I frequent into the Unity web-app interface in Ubuntu. F
 ## Bandcamp
 Controls the music played from the most excellent Bandcamp website.
 
+![](http://i.imgur.com/R1l0rz7.jpg)
+
+The Bandcamp name, logo and all that good stuff is of course (c) Bandcamp
+
+
 ### Issues
 * Does not work on singles yet, only albums
 * Does not work on custom domains, only on `*.bandcamp.com/*
